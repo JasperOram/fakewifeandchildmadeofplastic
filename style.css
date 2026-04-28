@@ -2,45 +2,44 @@ body {
   margin: 0;
 }
 
-/* background */
 .background {
   background-color: #FA8072;
 }
 
-/* One-line centered title that scales to fit iPhone width */
+/* This is the centered "viewport" that can scroll left/right */
+.scroll-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* the scroll area width is the screen width */
+  width: 100vw;
+
+  /* horizontal scrolling if needed */
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* iOS scrolling feel */
+  -webkit-overflow-scrolling: touch;
+
+  /* optional: a little padding so text isn't flush to edges */
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+/* The text stays one line and can be wider than the screen */
 .centered {
-  font-size: 7.8rem;          /* keep your original size */
+  font-size: 7.8rem;
   font-style: italic;
   text-decoration: none;
   color: rgb(113, 15, 15);
   font-family: 'Helvetica', serif;
 
-  position: fixed;
-  top: 50%;
-  left: 50%;
-
-  /* force single line */
   white-space: nowrap;
-
-  /* allow the element to measure itself and not be constrained */
   width: max-content;
 
-  /* center + fit scaling */
-  transform: translate(-50%, -50%) scaleX(var(--fit-x, 1));
-  transform-origin: center;
-}
-
-/* On smaller screens, shrink horizontally so the full word fits */
-@media (max-width: 480px) {
-  .centered {
-    /* 0.55–0.70 is typically enough for long single-line text on iPhone */
-    --fit-x: 0.58;
-  }
-}
-
-/* Even smaller devices */
-@media (max-width: 360px) {
-  .centered {
-    --fit-x: 0.52;
-  }
+  /* centers the text within the scroll area when it *does* fit */
+  margin: 0 auto;
+  line-height: 1;
 }
