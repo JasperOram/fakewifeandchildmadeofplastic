@@ -1,19 +1,35 @@
+/* Avoid forcing the whole page into an absolute positioning context */
 body {
-position: absolute;
+  margin: 0;
 }
 
+/* background */
 .background {
   background-color: #FA8072;
 }
 
+/* centered responsive title */
 .centered {
-  font-size: 7.8rem;
   font-style: italic;
   text-decoration: none;
   color: rgb(113, 15, 15);
   font-family: 'Helvetica', serif;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+
+  /* Responsive font size:
+     - never smaller than 2rem
+     - scales with viewport width
+     - never larger than 7.8rem (your original size) */
+  font-size: clamp(2rem, 8vw, 7.8rem);
+
+  /* Center it */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* iPhone/small screens: let it wrap instead of getting cut off */
+  width: min(95vw, 1200px);
+  text-align: center;
+  overflow-wrap: anywhere;
+  line-height: 1.05;
 }
