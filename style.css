@@ -1,4 +1,3 @@
-/* Avoid forcing the whole page into an absolute positioning context */
 body {
   margin: 0;
 }
@@ -8,28 +7,40 @@ body {
   background-color: #FA8072;
 }
 
-/* centered responsive title */
+/* One-line centered title that scales to fit iPhone width */
 .centered {
+  font-size: 7.8rem;          /* keep your original size */
   font-style: italic;
   text-decoration: none;
   color: rgb(113, 15, 15);
   font-family: 'Helvetica', serif;
 
-  /* Responsive font size:
-     - never smaller than 2rem
-     - scales with viewport width
-     - never larger than 7.8rem (your original size) */
-  font-size: clamp(2rem, 8vw, 7.8rem);
-
-  /* Center it */
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
 
-  /* iPhone/small screens: let it wrap instead of getting cut off */
-  width: min(95vw, 1200px);
-  text-align: center;
-  overflow-wrap: anywhere;
-  line-height: 1.05;
+  /* force single line */
+  white-space: nowrap;
+
+  /* allow the element to measure itself and not be constrained */
+  width: max-content;
+
+  /* center + fit scaling */
+  transform: translate(-50%, -50%) scaleX(var(--fit-x, 1));
+  transform-origin: center;
+}
+
+/* On smaller screens, shrink horizontally so the full word fits */
+@media (max-width: 480px) {
+  .centered {
+    /* 0.55–0.70 is typically enough for long single-line text on iPhone */
+    --fit-x: 0.58;
+  }
+}
+
+/* Even smaller devices */
+@media (max-width: 360px) {
+  .centered {
+    --fit-x: 0.52;
+  }
 }
